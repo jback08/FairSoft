@@ -54,8 +54,8 @@ export VGM_LOCATION="http://svn.code.sf.net/p/vgm/code/tags/"
 export VGMVERSION=v3-06
 
 export GEANT4VMC_LOCATION="http://root.cern.ch/git/geant4_vmc.git"
-export GEANT4VMCBRANCH=v2-15-patches
-export GEANT4VMCVERSION=8ca9af5ff6c8d6a0a080f958d483ec07be2bf5f8
+#export GEANT4VMCBRANCH=v2-15-patches
+#export GEANT4VMCVERSION=8ca9af5ff6c8d6a0a080f958d483ec07be2bf5f8
 
 export MILLEPEDE_LOCATION="http://svnsrv.desy.de/public/MillepedeII/tags/"
 export MILLEPEDE_VERSION=V04-01-01

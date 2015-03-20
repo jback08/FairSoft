@@ -7,8 +7,8 @@ if [ ! -d  $SIMPATH/transport/geant4_vmc ]; then
 fi
 
 cd $SIMPATH/transport/geant4_vmc
-git checkout $GEANT4VMCBRANCH
-git reset $GEANT4VMCVERSION
+#git checkout $GEANT4VMCBRANCH
+#git reset $GEANT4VMCVERSION
     
 install_prefix=$SIMPATH_INSTALL
 checkfile=$install_prefix/lib/libgeant4vmc.so
@@ -18,27 +18,18 @@ then
 
   cd $SIMPATH/transport/geant4_vmc
 
-  mypatch ../Geant4_vmc_c++11.patch
+  #mypatch ../Geant4_vmc_c++11.patch
   
-  cd $SIMPATH/transport/geant4_vmc/g4root
+  if (not_there Geant4_VMC_Build build);
+  then
+    mkdir build
+  fi
+  cd build
+
+  cmake -DCMAKE_INSTALL_PREFIX=$install_prefix ../
+  
   make -j$number_of_processes
-
-  cd $SIMPATH/transport/geant4_vmc/source
-  cp $SIMPATH/transport/Makefile_geant4vmc Makefile
-
-  make -j$number_of_processes
-
-  # fake make install
-  architecture=$(root-config --arch)
-  cd $SIMPATH/transport/geant4_vmc/lib/tgt_$architecture
-  mkdir -p $install_prefix/lib
-  cp * $install_prefix/lib 
-  cd $SIMPATH/transport/geant4_vmc/include
-  mkdir -p $install_prefix/include/geant4vmc
-  cp g4root/* $install_prefix/include/geant4vmc
-  cp geant4vmc/* $install_prefix/include/geant4vmc
-  mkdir -p $install_prefix/share/geant4_vmc/macro
-  cp $SIMPATH/transport/macro/* $install_prefix/share/geant4_vmc/macro
+  make -j$number_of_processes install
 
   if [ "$platform" = "macosx" ];
   then
